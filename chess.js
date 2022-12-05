@@ -51,6 +51,7 @@ const chesslaw = [
     moves: ["step-horizontal", "step-vertical", "vertical", "horizontal"],
   },
 ];
+
 const isValidMove = (board, aka, endPos) => {
   let x = 1;
   let y = 1;
