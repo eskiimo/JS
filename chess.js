@@ -7,8 +7,7 @@ let board = `~~~~~~~~
              ~~~~~~~~
              ~~~R~~~~`;
 
-///assuming Capital "white" starts top -> down
-
+// check how the piece moves
 const checkMove = (start, end) => {
   let movementType = "";
   let dx = 0;
@@ -31,39 +30,32 @@ const checkMove = (start, end) => {
   }
   return movementType;
 };
-
+const chesslaw = [
+  { kind: "K", moves: ["step-vertical", "step-horizontal", "step-diagonal"] },
+  {
+    kind: "Q",
+    moves: [
+      "diagonal",
+      "horizontal",
+      "vertical",
+      "step-vertical",
+      "step-horizontal",
+      "step-diagonal",
+    ],
+  },
+  { kind: "B", moves: ["diagonal", "step-diagonal"] },
+  { kind: "N", moves: ["N"] },
+  { kind: "p", moves: ["step-horizontal"] },
+  {
+    kind: "R",
+    moves: ["step-horizontal", "step-vertical", "vertical", "horizontal"],
+  },
+];
 const isValidMove = (board, aka, endPos) => {
   let x = 1;
   let y = 1;
-  const chesslaw = [
-    { kind: "K", moves: ["step-vertical", "step-horizontal", "step-diagonal"] },
-    {
-      kind: "Q",
-      moves: [
-        "diagonal",
-        "horizontal",
-        "vertical",
-        "step-vertical",
-        "step-horizontal",
-        "step-diagonal",
-      ],
-    },
-    { kind: "B", moves: ["diagonal", "step-diagonal"] },
-    { kind: "N", moves: ["N"] },
-    { kind: "p", moves: ["step-horizontal"] },
-    {
-      kind: "R",
-      moves: ["step-horizontal", "step-vertical", "vertical", "horizontal"],
-    },
-  ];
 
   let trimmed = board.replaceAll("\n", "").replaceAll(" ", "");
-
-  // if (aka.toUpperCase().charCodeAt(0) - aka.charCodeAt(0) === 0) {
-  //   Ltype = "Capital";
-  // } else {
-  //   Ltype = "small";
-  // }
 
   let aka2 = aka.toUpperCase();
   let step = 0;
@@ -79,8 +71,6 @@ const isValidMove = (board, aka, endPos) => {
         startPos: [i - step + 1, y],
         movementType: checkMove([i - step + 1, y], endPos),
       };
-
-      //   places.push(piece);
     }
     if (i % 8 === 0) {
       step = 8 * y;
@@ -98,8 +88,8 @@ const isValidMove = (board, aka, endPos) => {
 };
 
 const testCases = () => {
-  isValidMove(board, "K", [1, 1]);
-  isValidMove(board, "K", [3, 4]);
+  isValidMove(board, "R", [1, 1]);
+  isValidMove(board, "K", [1, 2]);
   isValidMove(board, "b", [5, 2]);
   isValidMove(board, "R", [8, 8]);
   isValidMove(board, "x", [8, 8]);
