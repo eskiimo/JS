@@ -31,37 +31,47 @@ const settlers = [
 const hex_length = [3, 4, 5, 4, 3];
 
 const randFunc = (list) => {
-  let n = list.length;
   let orderedList = [];
   let st = [];
-  for (var i = 0; i < 5; i++) {
+  let valid = [];
+  for (var i = 0; i < hex_length.length; i++) {
     for (let j = 0; j < hex_length[i]; j++) {
       let rand = Math.floor(Math.random() * list.length);
       // console.log(settlers[rand]);
       let randomElement = settlers[rand].toString();
 
       st.push(randomElement);
+      valid.push(randomElement);
 
       list.splice(rand, 1);
     }
     orderedList.push(st.join(" "));
 
-    console.log(" ".repeat(5 - hex_length[i]) + orderedList[i]);
+    // console.log(" ".repeat(5 - hex_length[i]) + orderedList[i]);
+    // console.log(orderedList[i]);
     st = [];
+
+    console.log(" ".repeat(5 - hex_length[i]) + orderedList[i]);
   }
-  return orderedList;
+  // console.log(valid);
+  for (let i = 0; i < valid.length; i++) {
+    if (valid[i] == 6 || valid[i] == 8) {
+      if (
+        (i - 5 > -1 && valid[i - 5] == valid[i]) ||
+        (i - 4 > -1 && valid[i - 4] == valid[i]) ||
+        (i - 1 > -1 && valid[i - 1] == valid[i]) ||
+        (i + 1 < valid.length && valid[i + 1] == valid[i]) ||
+        (i + 4 < valid.length && valid[i + 4] == valid[i]) ||
+        (i + 5 < valid.length && valid[i + 5] == valid[i])
+      ) {
+        console.log("false");
+        break;
+      } else {
+        console.log("gg");
+      }
+    }
+  }
+  return;
 };
 
-// const buildHex = () => {
-//   for (var i = 0; i < 5; i++) {
-//     console.log(
-//       " ".repeat(5 - hex_length[i]) +
-//         " h".repeat(hex_length[i]) +
-//         " ".repeat(5 - hex_length[i])
-//     );
-//   }
-// };
-
-// buildHex();
-
-console.log(randFunc(settlers));
+randFunc(settlers);
