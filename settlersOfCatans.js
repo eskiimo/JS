@@ -30,48 +30,86 @@ const settlers = [
 ];
 const hex_length = [3, 4, 5, 4, 3];
 
-const randFunc = (list) => {
-  let orderedList = [];
+const randFunc = (array) => {
+  let list = [...array];
+  orderedList = [];
   let st = [];
   let valid = [];
   for (var i = 0; i < hex_length.length; i++) {
     for (let j = 0; j < hex_length[i]; j++) {
       let rand = Math.floor(Math.random() * list.length);
       // console.log(settlers[rand]);
-      let randomElement = settlers[rand].toString();
+      let randomElement = list[rand].toString();
 
       st.push(randomElement);
       valid.push(randomElement);
 
       list.splice(rand, 1);
     }
-    orderedList.push(st.join(" "));
+    orderedList.push(st);
 
-    // console.log(" ".repeat(5 - hex_length[i]) + orderedList[i]);
-    // console.log(orderedList[i]);
     st = [];
 
-    console.log(" ".repeat(5 - hex_length[i]) + orderedList[i]);
+    console.log(" ".repeat(5 - hex_length[i]) + orderedList[i].join(" "));
   }
-  // console.log(valid);
-  for (let i = 0; i < valid.length; i++) {
-    if (valid[i] == 6 || valid[i] == 8) {
-      if (
-        (i - 5 > -1 && valid[i - 5] == valid[i]) ||
-        (i - 4 > -1 && valid[i - 4] == valid[i]) ||
-        (i - 1 > -1 && valid[i - 1] == valid[i]) ||
-        (i + 1 < valid.length && valid[i + 1] == valid[i]) ||
-        (i + 4 < valid.length && valid[i + 4] == valid[i]) ||
-        (i + 5 < valid.length && valid[i + 5] == valid[i])
-      ) {
-        console.log("false");
-        break;
-      } else {
-        console.log("gg");
+
+  for (var i = 0; i < hex_length.length; i++) {
+    for (let j = 0; j < hex_length[i]; j++) {
+      if (orderedList[i][j] == 6 || orderedList[i][j] == 8) {
+        if (i <= 3) {
+          // top side of hexagon
+          if (
+            (i - 1 > -1 &&
+              j - 1 > -1 &&
+              orderedList[i - 1][j - 1] == orderedList[i][j]) ||
+            (i - 1 > -1 && orderedList[i - 1][j] == orderedList[i][j]) ||
+            (j - 1 > -1 && orderedList[i][j - 1] == orderedList[i][j]) ||
+            (j + 1 <= hex_length[i] &&
+              orderedList[i][j + 1] == orderedList[i][j]) ||
+            (i + 1 < 5 && orderedList[i + 1][j] == orderedList[i][j]) ||
+            (i + 1 > 5 &&
+              j + 1 <= hex_length[i] &&
+              orderedList[i + 1][j + 1] == orderedList[i][j])
+          ) {
+            console.log("Err in top side at element : " + orderedList[i][j]);
+            console.log(settlers);
+            return;
+          }
+        } else {
+          // bottom side of hexagon
+          if (
+            (i - 1 > -1 &&
+              j + 1 <= hex_length[i] &&
+              orderedList[i - 1][j + 1] == orderedList[i][j]) ||
+            (i - 1 > -1 && orderedList[i - 1][j] == orderedList[i][j]) ||
+            (j - 1 > -1 && orderedList[i][j - 1] == orderedList[i][j]) ||
+            (j + 1 <= hex_length[i] &&
+              orderedList[i][j + 1] == orderedList[i][j]) ||
+            (i + 1 < 5 && orderedList[i + 1][j] == orderedList[i][j]) ||
+            (i + 1 < 5 &&
+              j - 1 > -1 &&
+              orderedList[i + 1][j - 1] == orderedList[i][j])
+          ) {
+            console.log("Err in bottom side at element : " + orderedList[i][j]);
+            console.log(settlers);
+            return;
+          }
+        }
       }
     }
   }
-  return;
+  console.log(settlers);
+  console.log(' Valid Board "fingers crossed"');
 };
-
-randFunc(settlers);
+const testCases = () => {
+  randFunc(settlers);
+  randFunc(settlers);
+  randFunc(settlers);
+  randFunc(settlers);
+};
+testCases();
+// B 6 A
+// 6 B 3 8
+// . C 4 8 A
+// 5 2 9 5
+// 9 4 3
