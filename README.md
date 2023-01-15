@@ -1,6 +1,6 @@
 # JavaScript
 
-hands on js excercises and problem solving 
+hands on js exercises and problem solving 
 
 ## Cassidy Williams 
 
