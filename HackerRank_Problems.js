@@ -361,3 +361,97 @@ console.log(
     [2, 3],
   ])
 );
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+// ACM ICPC Team
+function acmTeam(topic) {
+  let pairs = [];
+  for (var i = 1; i < topic.length + 1; i++) {
+    for (var j = i + 1; j < topic.length + 1; j++) {
+      if (i !== j) {
+        pairs.push([i, j]);
+      }
+    }
+  }
+
+  let maxCount = 0;
+  let n = [];
+  for (let i = 0; i < pairs.length; i++) {
+    let pair = pairs[i];
+    let topic1 = topic[pair[0] - 1];
+    let topic2 = topic[pair[1] - 1];
+    let count = 0;
+    for (var j = 0; j < topic1.length; j++) {
+      if (topic1[j] | topic2[j]) {
+        count++;
+      }
+    }
+    n.push(count);
+    console.log(maxCount, count);
+    maxCount = Math.max(count, maxCount);
+  }
+  let teamCount = 0;
+  for (var i = 0; i < n.length; i++) {
+    if (n[i] === maxCount) teamCount++;
+  }
+  return [maxCount, teamCount];
+}
+
+console.log(acmTeam(["10101", "11100", "11010", "00101"]));
+//////////////////////////////////////////////////////////////////////////////////////////////
+function gradingStudents(grades) {
+  let newGrades = [];
+  for (var i = 0; i < grades.length; i++) {
+    let remainder = grades[i] % 5;
+    if (remainder >= 3) {
+      let adj = grades[i] + 5 - remainder;
+      if (adj < 40) {
+        newGrades.push(grades[i]);
+      } else {
+        newGrades.push(adj);
+      }
+    } else {
+      newGrades.push(grades[i]);
+    }
+  }
+  return newGrades;
+}
+
+console.log(gradingStudents([73, 54, 32, 33]));
+//////////////////////////////////////////////////////////////////////////////////////////////
+function countApplesAndOranges(s, t, a, b, apples, oranges) {
+  // Write your code here
+  let apple_count = 0;
+  let orange_count = 0;
+
+  for (var i = 0; i < apples.length; i++) {
+    if (a + apples[i] >= s && a + apples[i] <= t) {
+      apple_count += 1;
+    }
+  }
+  for (var i = 0; i < oranges.length; i++) {
+    if (b + oranges[i] <= t && b + oranges[i] >= s) {
+      orange_count += 1;
+    }
+  }
+
+  console.log(apple_count);
+  console.log(orange_count);
+}
+
+countApplesAndOranges(7, 11, 5, 15, [-2, 2, 1], [5, -6]);
+//////////////////////////////////////////////////////////////////////////////////////////////
+function kangaroo(x1, v1, x2, v2) {
+  // Write your code here
+
+  if (v1 <= v2) {
+    return "NO";
+  }
+  if ((x2 - x1) % (v1 - v2) === 0) {
+    return "YES";
+  } else {
+    return "NO";
+  }
+}
+console.log(kangaroo(0, 3, 4, 2));
+//////////////////////////////////////////////////////////////////////////////////////////////
