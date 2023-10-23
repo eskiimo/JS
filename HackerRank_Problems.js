@@ -455,3 +455,98 @@ function kangaroo(x1, v1, x2, v2) {
 }
 console.log(kangaroo(0, 3, 4, 2));
 //////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+// Least common multiple and greatest common divisor   factorrrsss (Between two sets)
+const gcd = (a, b) => {
+  while (b != 0) {
+    let temp = b;
+    b = a % b;
+    a = temp;
+  }
+  return a;
+};
+
+const lcm = (a, b) => {
+  return (a * b) / gcd(a, b);
+};
+
+const getTotalx = (a, b) => {
+  let lcmA = a[0];
+  let gcdB = b[0];
+
+  for (let i = 0; i < a.length; i++) {
+    lcmA = lcm(lcmA, a[i]);
+  }
+  for (let i = 0; i < b.length; i++) {
+    gcdB = gcd(gcdB, b[i]);
+  }
+  console.log(lcmA, gcdB);
+
+  let count = 0;
+
+  for (let i = lcmA, j = 2; i <= gcdB; i = lcmA * j, j++) {
+    if (gcdB % i === 0) {
+      count++;
+    }
+  }
+
+  return count;
+};
+
+console.log(getTotalx([3, 4], [24, 48]));
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
+function birthday(s, d, m) {
+  // Write your code here
+  let count = 0;
+  for (var i = 0; i <= s.length - m; i++) {
+    let temp = s.slice(i, i + m);
+    let total = temp.reduce((acc, i) => acc + i, 0);
+    if (total === d) count++;
+  }
+  return count;
+}
+
+console.log(birthday([1, 2, 1, 3, 2], 3, 2));
+/////////////////////////////////////////////////////////////////////////////////////////////
+function breakingRecords(scores) {
+  // Write your code here
+  let minCount = 0;
+  let maxCount = 0;
+  let max = scores[0];
+  let min = scores[0];
+  for (let i = 1; i < scores.length; i++) {
+    if (scores[i] > max) {
+      max = Math.max(max, scores[i]);
+      maxCount++;
+    } else if (scores[i] < min) {
+      min = Math.min(min, scores[i]);
+      minCount++;
+    }
+    //     console.log(maxCount, minCount);
+  }
+  return [maxCount, minCount];
+}
+
+breakingRecords([10, 5, 20, 20, 4, 5, 2, 25, 1]);
+///////////////////////////////////////////////////////////////////////////////////////////////////
+function divisibleSumPairs(n, k, ar) {
+  // Write your code here
+  let pairs = [];
+  for (var i = 0; i < n; i++) {
+    for (var j = i + 1; j < n; j++) {
+      let a = ar[i];
+      let b = ar[j];
+      let sum = a + b;
+      if (i < j && sum % k === 0) {
+        pairs.push([a, b]);
+      }
+    }
+  }
+  return pairs;
+}
+console.log(divisibleSumPairs(6, 3, [1, 3, 2, 6, 1, 2]));
+///////////////////////////////////////////////////////////////////////////////////////////////////
