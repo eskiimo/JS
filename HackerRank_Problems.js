@@ -550,3 +550,37 @@ function divisibleSumPairs(n, k, ar) {
 }
 console.log(divisibleSumPairs(6, 3, [1, 3, 2, 6, 1, 2]));
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+function migratoryBirds(arr) {
+  // Write your code here
+  let obj = {};
+  for (var i = 0; i < arr.length; i++) {
+    let item = arr[i];
+    obj[item] ? (obj[item] += 1) : (obj[item] = 1);
+  }
+  let max = -Infinity;
+  let k;
+  for (const key in obj) {
+    if (obj[key] > max) {
+      max = obj[key];
+      k = key;
+    } else if ((obj[key] = max)) {
+      k = Math.min(k, key);
+    }
+  }
+  return k;
+}
+
+console.log(migratoryBirds([1, 1, 2, 2, 3]));
+////////////////////////////////////////////////////////////////////////////
+function bonAppetit(bill, k, b) {
+  // Write your code here
+  let sum = bill.reduce((acc, i) => acc + i, 0);
+  let annaHalf = sum / 2 - bill[k] / 2;
+
+  if (annaHalf === b) {
+    console.log("Bon Appetit");
+  } else {
+    console.log(b - annaHalf);
+  }
+}
+console.log(bonAppetit([3, 10, 2, 9], 1, 12));
