@@ -584,3 +584,31 @@ function bonAppetit(bill, k, b) {
   }
 }
 console.log(bonAppetit([3, 10, 2, 9], 1, 12));
+// //////////////////////////////////////////////////////////////////////////////////
+
+const sockMerchant = (n, arr) => {
+  let sock = {};
+  for (var i = 0; i < n; i++) {
+    let far = arr[i];
+    sock[far] ? (sock[far] += 1) : (sock[far] = 1);
+  }
+  console.log(sock);
+  let pairs = 0;
+  for (let key in sock) {
+    if (sock[key] > 1) pairs += Math.floor(sock[key] / 2);
+  }
+  return pairs;
+};
+
+console.log(sockMerchant(9, [10, 20, 20, 10, 10, 30, 50, 10, 20]));
+
+///////////////////////////////////////////////////////////////////////
+function pageCount(n, p) {
+  let start = Math.floor(p / 2);
+  let end = Math.floor(n / 2) - Math.floor(p / 2);
+  const min = Math.min(start, end);
+  return min;
+}
+
+console.log(pageCount(6, 2));
+////////////////////////////////////////////////////////////////////////
